@@ -10,6 +10,12 @@
     --border: #4a3560;
 }
 
+/* ============================================================
+   BASE
+============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
 body {
     background-color: var(--bg);
     color: var(--text);
@@ -21,9 +27,12 @@ body {
     gap: 20px;
     min-height: 100vh;
     margin: 0;
-    padding: 40px 0;
-    box-sizing: border-box;
+    padding: 40px 16px;
 }
+
+/* ============================================================
+   CARD
+============================================================ */
 
 .card {
     background-color: var(--bg-card);
@@ -44,15 +53,8 @@ body {
     border-color: var(--border);
 }
 
-.title h1 {
-    font-size: 24px;
-    margin: 0;
-}
-
-.title h1 span {
-    color: var(--accent);
-}
-
+.title h1 { font-size: 24px; margin: 0; }
+.title h1 span { color: var(--accent); }
 .title h5 {
     font-size: 14px;
     color: var(--text-muted);
@@ -60,7 +62,10 @@ body {
     margin-bottom: 0;
 }
 
-/* Panel */
+/* ============================================================
+   PANEL
+============================================================ */
+
 .panel {
     overflow: hidden;
     transition: height 320ms cubic-bezier(.22,.9,.22,1);
@@ -73,11 +78,8 @@ body {
     padding-top: 12px;
 }
 
-.panel-inner.hidden {
-    opacity: 0;
-}
+.panel-inner.hidden { opacity: 0; }
 
-/* Panel header */
 .panel-header {
     position: relative;
     padding: 6px 44px 6px 6px;
@@ -98,31 +100,80 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.panel-header .add-card { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); margin: 0; }
 
-/* Projects grid */
-.projects-grid {
+.panel-header .add-card {
+    position: absolute;
+    right: 6px;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;
+}
+
+/* ============================================================
+   GRIDS
+============================================================ */
+
+.projects-grid,
+.scores-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    justify-content: center;
     gap: 12px;
     margin-top: 8px;
     padding: 0 4px;
 }
+
+.scores-grid { gap: 14px; }
+
+/* ============================================================
+   CARDS
+============================================================ */
 
 .project-card {
     background: transparent;
     border-radius: 8px;
     overflow: hidden;
     text-align: left;
-    box-sizing: border-box;
     padding: 8px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
 }
 
-/* Add-card tile */
+.project-card img {
+    display: block;
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+}
+
+.project-card h4 { font-size: 14px; margin: 8px 0 4px 0; color: var(--text); }
+.project-card p  { font-size: 12px; margin: 0 0 6px 0; color: var(--text-muted); }
+
+.score-card {
+    text-align: left;
+    padding: 8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.score-card img {
+    display: block;
+    width: 100%;
+    height: 130px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+}
+
+.score-card h4 { font-size: 14px; margin: 8px 0 4px 0; }
+.score-card p  { color: var(--text-muted); font-size: 12px; margin: 0 0 6px 0; }
+
+/* ============================================================
+   ADD CARD BUTTON
+============================================================ */
+
 .add-card {
     width: 44px;
     height: 44px;
@@ -147,7 +198,10 @@ body {
     cursor: pointer;
 }
 
-/* Modal */
+/* ============================================================
+   MODAL
+============================================================ */
+
 .card-modal {
     position: fixed;
     inset: 0;
@@ -155,6 +209,7 @@ body {
     place-items: center;
     background: rgba(0,0,0,0.6);
     z-index: 10000;
+    padding: 16px;
 }
 
 .card-modal .modal-box {
@@ -162,8 +217,11 @@ body {
     border: 1px solid var(--border);
     padding: 16px;
     border-radius: 8px;
-    width: 320px;
+    width: 100%;
+    max-width: 320px;
     color: var(--text);
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
 .card-modal input[type="text"],
@@ -173,11 +231,11 @@ body {
     padding: 8px;
     margin-top: 8px;
     margin-bottom: 8px;
-    box-sizing: border-box;
     border: 1px solid var(--border);
     border-radius: 6px;
     background: transparent;
     color: var(--text);
+    font-size: 16px; /* prevents iOS zoom on focus */
 }
 
 .paste-zone {
@@ -200,66 +258,32 @@ body {
     grid-column: 1 / -1;
 }
 
-.card-modal .modal-actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 8px; }
-.card-modal button { padding: 8px 10px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg-card); color: var(--text); cursor: pointer; }
-.card-modal .primary { background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 100%); border: none; }
+.card-modal .modal-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    margin-top: 8px;
+}
 
-.project-card img {
-    display: block;
-    width: 100%;
-    height: 130px;
-    object-fit: cover;
+.card-modal button {
+    padding: 8px 10px;
     border-radius: 6px;
     border: 1px solid var(--border);
-}
-
-.project-card h4 {
-    font-size: 14px;
-    margin: 8px 0 4px 0;
+    background: var(--bg-card);
     color: var(--text);
-}
-
-.project-card p {
-    font-size: 12px;
-    margin: 0 0 6px 0;
-    color: var(--text-muted);
-}
-
-/* Scores grid */
-.scores-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    justify-content: center;
-    gap: 14px;
-    margin-top: 8px;
-    padding: 0 4px;
-}
-
-.score-card {
-    text-align: left;
-    box-sizing: border-box;
-    padding: 8px;
-    display: flex;
-    flex-direction: column;
-}
-
-.score-card img {
-    display: block;
-    width: 100%;
-    height: 130px;
-    object-fit: cover;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-}
-
-.score-card h4 {
+    cursor: pointer;
     font-size: 14px;
-    margin: 8px 0 4px 0;
 }
 
-.score-card p { color: var(--text-muted); font-size: 12px; margin: 0 0 6px 0; }
+.card-modal .primary {
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 100%);
+    border: none;
+}
 
-/* Fullscreen viewer */
+/* ============================================================
+   FULLSCREEN VIEWER
+============================================================ */
+
 .viewer {
     position: fixed;
     inset: 0;
@@ -299,6 +323,10 @@ body {
     font-size: 18px;
 }
 
+/* ============================================================
+   PANEL TEXT
+============================================================ */
+
 .panel-inner h3 {
     font-size: 18px;
     margin-bottom: 10px;
@@ -312,7 +340,6 @@ body {
     line-height: 1.6;
 }
 
-/* Commission credit styling */
 .panel-inner .commission {
     margin-top: 12px;
     background: rgba(168,85,212,0.06);
@@ -323,7 +350,9 @@ body {
     font-size: 13px;
     text-align: center;
 }
+
 .panel-inner .commission em { font-style: normal; }
+
 .panel-inner .credit-link {
     color: var(--accent);
     text-decoration: none;
@@ -331,9 +360,13 @@ body {
     padding-bottom: 2px;
     border-bottom: 2px solid transparent;
 }
+
 .panel-inner .credit-link:hover { border-bottom-color: var(--accent2); }
 
-/* Link buttons */
+/* ============================================================
+   LINK BUTTONS
+============================================================ */
+
 .link-buttons {
     list-style: none;
     padding: 0;
@@ -356,12 +389,10 @@ body {
     text-decoration: none;
     border: 1px solid var(--border);
     transition: transform 120ms ease, filter 120ms ease, border-color 120ms ease;
-    box-sizing: border-box;
 }
 
 .link-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
-
-.link-btn:hover { transform: translateY(-2px); filter: brightness(1.15); border-color: transparent; }
+.link-btn:hover  { transform: translateY(-2px); filter: brightness(1.15); border-color: transparent; }
 .link-btn:active { transform: translateY(0); filter: brightness(0.95); }
 
 .link-btn.twitch  { background: #6441a5; color: #fff; border-color: #7d5bbe; }
@@ -370,12 +401,16 @@ body {
 .link-btn.youtube { background: #FF0000; color: #fff; border-color: #cc0000; }
 .link-btn.discord { background: #5865F2; color: #fff; border-color: #4752c4; }
 
-/* Nav buttons */
+/* ============================================================
+   NAV BUTTONS
+============================================================ */
+
 .buttons-content {
     display: flex;
     gap: 12px;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 }
 
 .buttons-content button {
@@ -398,4 +433,106 @@ body {
 }
 
 .buttons-content button:active { transform: translateY(0); }
-.buttons-content button:focus { outline: 2px solid rgba(168, 85, 212, 0.18); outline-offset: 2px; }
+.buttons-content button:focus  { outline: 2px solid rgba(168, 85, 212, 0.18); outline-offset: 2px; }
+
+/* ============================================================
+   MOBILE — up to 480px (phones)
+============================================================ */
+
+@media (max-width: 480px) {
+    body {
+        padding: 16px 12px;
+        gap: 14px;
+        justify-content: flex-start;
+    }
+
+    .card {
+        width: 100%;
+        min-width: unset;
+        max-width: 100%;
+        padding: 16px 14px;
+        border-radius: 12px;
+    }
+
+    .avatar img {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 10px;
+    }
+
+    .title h1 { font-size: 20px; }
+    .title h5 { font-size: 12px; }
+
+    .projects-grid,
+    .scores-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .project-card img,
+    .score-card img {
+        height: 180px;
+    }
+
+    .buttons-content {
+        width: 100%;
+        gap: 8px;
+    }
+
+    .buttons-content button {
+        flex: 1;
+        padding: 10px 8px;
+        font-size: 13px;
+        min-width: 0;
+    }
+
+    .card-modal .modal-box {
+        max-width: 100%;
+        border-radius: 12px;
+    }
+
+    .card-modal input[type="text"],
+    .card-modal input[type="password"],
+    .card-modal textarea {
+        font-size: 16px; /* prevents iOS zoom */
+    }
+
+    .viewer-close {
+        right: 10px;
+        top: 10px;
+        padding: 8px 12px;
+        font-size: 20px;
+    }
+}
+
+/* ============================================================
+   TABLET — 481px to 768px
+============================================================ */
+
+@media (min-width: 481px) and (max-width: 768px) {
+    body {
+        padding: 24px 16px;
+        gap: 16px;
+    }
+
+    .card {
+        width: 90%;
+        min-width: unset;
+        max-width: 520px;
+    }
+
+    .avatar img {
+        width: 120px;
+        height: 120px;
+    }
+
+    .projects-grid,
+    .scores-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .buttons-content button {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+}
