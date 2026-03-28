@@ -18,16 +18,26 @@
 
 body {
     background-color: var(--bg);
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+        url('../images/bg.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     color: var(--text);
     font-family: 'Arial', sans-serif;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    padding-left: 80px;
     gap: 20px;
     min-height: 100vh;
     margin: 0;
-    padding: 40px 16px;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    padding-right: 16px;
 }
 
 /* ============================================================
@@ -235,7 +245,7 @@ body {
     border-radius: 6px;
     background: transparent;
     color: var(--text);
-    font-size: 16px; /* prevents iOS zoom on focus */
+    font-size: 16px;
 }
 
 .paste-zone {
@@ -408,9 +418,12 @@ body {
 .buttons-content {
     display: flex;
     gap: 12px;
-    justify-content: center;
+    justify-content: center;   /* ← back to center */
     align-items: center;
     flex-wrap: wrap;
+    width: 25%;                /* ← matches .card */
+    min-width: 420px;          /* ← matches .card */
+    max-width: 560px;          /* ← matches .card */
 }
 
 .buttons-content button {
@@ -444,6 +457,7 @@ body {
         padding: 16px 12px;
         gap: 14px;
         justify-content: flex-start;
+        align-items: flex-start;
     }
 
     .card {
@@ -494,7 +508,7 @@ body {
     .card-modal input[type="text"],
     .card-modal input[type="password"],
     .card-modal textarea {
-        font-size: 16px; /* prevents iOS zoom */
+        font-size: 16px;
     }
 
     .viewer-close {
@@ -513,6 +527,8 @@ body {
     body {
         padding: 24px 16px;
         gap: 16px;
+        align-items: flex-start;
+        padding-left: 40px;
     }
 
     .card {
